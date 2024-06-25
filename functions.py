@@ -14,14 +14,21 @@ def cross_entropy_error(y, t):
 
 def numerical_grad(f, x):
     h = 1e-4
-    grad = np.zeros(x.shape)
-    for idx in range(x.shape):
+    grad = np.zeros_like(x)
+    
+    it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
+    while not it.finished:
+        idx = it.multi_index
         tmp_val = x[idx]
         x[idx] = tmp_val + h
-        fx1 = f(x)
+        fx1 = f(x)  # f(x + h)
         x[idx] = tmp_val - h
-        fx2 = f(x)
-        grad[idx] = (fx1 - fx2) / (2*h)
+        fx2 = f(x)  # f(x - h)
+        grad[idx] = (fx1 - fx2) / (2 * h)
+        x[idx] = tmp_val 
+        
+        it.iternext()
+        
     return grad
 
 def gradient_descent(f, init_x, lr=0.01, step_num=100):

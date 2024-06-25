@@ -50,12 +50,15 @@ class Affain():
 
     def forward(self, x):
         self.x = x
-        self.out = x@self.W + self.b
+        self.out = np.dot(x, self.W) + self.b
         return self.out
     
     def backward(self, dout):
-        dx = dout@self.W.T
-        self.dW = self.x.T@dout
+        if dout.ndim == 1:
+            dout = dout.reshape(1, -1)
+        
+        dx = np.dot(dout, self.W.T)
+        self.dW = np.dot(self.x.T, dout)
         self.db = np.sum(dout, axis=0)
         return dx
 
@@ -73,6 +76,8 @@ class SoftmaxWithLoss:
     
     def backward(self, dout=1):
         batch_size = self.y.shape[0]
+        if self.t.ndim == 1:
+            self.t = self.t.reshape(-1, 1)
         dx = (self.y - self.t) / batch_size
         return dx
     
