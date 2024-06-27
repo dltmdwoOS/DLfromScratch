@@ -9,18 +9,19 @@ def cross_entropy_error(y, t):
     if y.ndim == 1:
         y = np.reshape(1, y.size)
         t = np.reshape(1, t.size)
+        
     batch_size = y.shape[0]
     return -np.sum(t * np.log(y + 1e-7)) / batch_size
 
 def numerical_grad(f, x):
     h = 1e-4
     grad = np.zeros_like(x)
-    
+
     it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
     while not it.finished:
         idx = it.multi_index
         tmp_val = x[idx]
-        x[idx] = tmp_val + h
+        x[idx] = float(tmp_val) + h
         fx1 = f(x)  # f(x + h)
         x[idx] = tmp_val - h
         fx2 = f(x)  # f(x - h)
@@ -28,12 +29,5 @@ def numerical_grad(f, x):
         x[idx] = tmp_val 
         
         it.iternext()
-        
-    return grad
 
-def gradient_descent(f, init_x, lr=0.01, step_num=100):
-    x = init_x
-    for i in range(step_num):
-        grad = numerical_grad(f, x)
-        x -= lr*grad
-    return x
+    return grad
