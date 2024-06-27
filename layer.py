@@ -8,10 +8,6 @@ class ReLU():
         self.out = None
     
     def forward(self, x):
-        '''
-        Input : nparray
-        Output : ReLU(x)
-        '''
         self.mask = (x <= 0)
         out = x.copy()
         out[self.mask] = 0
@@ -19,10 +15,6 @@ class ReLU():
         return out
     
     def backward(self, dout):
-        '''
-        Input : delta out
-        Output : dx
-        '''
         dout[self.mask] = 0
         dx = dout
         return dx

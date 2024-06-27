@@ -5,9 +5,9 @@ from collections import OrderedDict
 class TwoLayerNetwork:
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         self.params = {
-            'W1':weight_init_std * np.random.randn(input_size, hidden_size),
+            'W1':2 * np.random.randn(input_size, hidden_size) / np.sqrt(input_size),
             'b1':np.zeros(hidden_size),
-            'W2':weight_init_std * np.random.randn(hidden_size, output_size),
+            'W2':2 * np.random.randn(hidden_size, output_size) / np.sqrt(hidden_size),
             'b2':np.zeros(output_size)
         }
         self.layers = OrderedDict()
