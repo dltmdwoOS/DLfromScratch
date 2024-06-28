@@ -166,6 +166,6 @@ class MultiLayerNetwork:
 
         return grads
     
-    def fit(self, X_train, y_train, batch_size, epoch=1000, learning_rate=0.01, moment=0.8):
-        self.loss_log, self.train_acc_log = optimizer_list[self.optimizer](self, X_train, y_train, batch_size, epoch, learning_rate, moment)
+    def fit(self, X_train, y_train, batch_size, epoch=1000, learning_rate=0.01, moment_const=0.8):
+        self.loss_log, self.train_acc_log = optimizer_list[self.optimizer](self, X_train, y_train, batch_size, epoch, learning_rate, moment_const)
         return f"final loss : {self.loss_log[-1]} / final train accuracy : {self.train_acc_log[-1]}"
