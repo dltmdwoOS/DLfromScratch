@@ -6,7 +6,7 @@ def mean_square_error(y, t):
     return np.sum((y-t)**2) / (2*batch_size)
 
 def cross_entropy_error(y, t):
-    if y.ndim == 1:
+    if y.ndim == 1: # (1,) -> (1, size)
         y = np.reshape(1, y.size)
         t = np.reshape(1, t.size)
         

@@ -2,7 +2,7 @@ import numpy as np
 import activation_function
 from functions import *
 
-class ReLU():
+class ReLU_layer():
     def __init__(self):
         self.mask = None
         self.out = None
@@ -19,7 +19,7 @@ class ReLU():
         dx = dout
         return dx
     
-class Sigmoid():
+class Sigmoid_layer():
     def __init__(self):
         self.out = None
         
@@ -31,7 +31,7 @@ class Sigmoid():
         y = self.out
         return dout*y*(1.0 - y)
 
-class Affain():
+class Affain_layer():
     def __init__(self, W, b):
         self.W = W
         self.b = b
@@ -51,7 +51,7 @@ class Affain():
         self.db = np.sum(dout, axis=0)
         return dx
 
-class SoftmaxWithLoss:
+class SoftmaxWithLoss():
     def __init__(self):
         self.loss = None
         self.y = None
